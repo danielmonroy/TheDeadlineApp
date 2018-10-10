@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <%= link_to 'New Project', new_project_path, class:"btn btn-success btn-fw float-right" %>
+        <h4 class="card-title">Current Projects</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Start Date
+                </th>
+                <th>
+                  Deadline
+                </th>
+                <th>
+                  Status
+                </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @projects.each do |project| %>
+                <tr>
+                  <td><%= project.name %></td>
+                  <td><%= project.start_date.strftime('%a %b %d, %Y') %></td>
+                  <td><%= project.end_date.strftime('%a %b %d, %Y') %></td>
+                  <td>
+                    <% case project.actual_status %>
+                    <% when "beginning" %>
+                      <label class="badge badge-success">Beginning</label>
+                    <% when "advanced" %>
+                      <label class="badge badge-primary">Advanced</label>
+                    <% when "midway" %>
+                      <label class="badge badge-warning">Midway</label>
+                    <% when "ending" %>
+                      <label class="badge badge-danger">Ending</label>
+                    <% when "late" %>
+                      <label class="badge badge-info">Late</label>
+                    <% end %>
+                  </td>
+                  <td class="text-primary"><%= link_to 'Ver', project %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
