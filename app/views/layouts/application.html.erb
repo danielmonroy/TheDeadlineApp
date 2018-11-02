@@ -165,7 +165,7 @@
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <span class="profile-text">Hello, <%= current_user.first_name + " " + current_user.last_name %> !</span>
-              <img class="img-xs rounded-circle" src="/images/faces/face1.jpg" alt="Profile image">
+              <img class="img-xs rounded-circle" src="https://api.adorable.io/avatars/100/<%= current_user.email %>.png" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <a class="dropdown-item p-0">
@@ -208,7 +208,7 @@
             <div class="nav-link">
               <div class="user-wrapper">
                 <div class="profile-image">
-                  <img src="/images/faces/face1.jpg" alt="profile image">
+                  <img src="https://api.adorable.io/avatars/100/<%= current_user.email %>.png" alt="profile image">
                 </div>
                 <div class="text-wrapper">
                   <p class="profile-name"><%= current_user.first_name + " " + current_user.last_name %></p>

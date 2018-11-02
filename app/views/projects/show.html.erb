@@ -101,6 +101,12 @@
     <div class="card">
       <div class="card-body">
         <h4><i class="mdi mdi-clock"></i> Project History</h4>
+        <br>
+        <ul>
+          <% @project_updates.each do |update| %>
+          <li><%= raw update.title + update.created_at.strftime('%b %d, %Y') %></li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>

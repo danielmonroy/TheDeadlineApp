@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :project_updates
   resources :tasks
   resources :projects, param: :slug
   devise_for :users, path: 'auth'

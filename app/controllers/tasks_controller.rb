@@ -28,6 +28,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        ProjectUpdate.create(project_id: @task.project.id, title: User.find(@task.project.user_id).first_name + ' created the task <b>' + @task.title + '</b> on ', action: "create")
         format.html { redirect_to @task.project, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
@@ -42,6 +43,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        ProjectUpdate.create(project_id: @task.project.id, title: User.find(@task.project.user_id).first_name + ' updated the task <b>' + @task.title + '</b> on ', action: "update")
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else

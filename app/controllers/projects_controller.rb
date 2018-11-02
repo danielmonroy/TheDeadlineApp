@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = current_user.projects
   end
 
   # GET /projects/1
@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
   def show
     @task = Task.new
     @tasks = @project.tasks
+    @project_updates = @project.project_updates.order(created_at: :desc)
   end
 
   # GET /projects/new
@@ -30,6 +31,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        ProjectUpdate.create(project_id: @project.id, title: User.find(@project.user_id).first_name + " created this project on ", action: "create")
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
@@ -44,6 +46,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
+        ProjectUpdate.create(project_id: @project.id, title: User.find(@project.user_id).first_name + " updated this project on ", action: "update")
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
