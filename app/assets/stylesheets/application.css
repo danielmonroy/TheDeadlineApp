@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+.navbar.default-layout .navbar-brand-wrapper .navbar-brand img {
+  width: auto;
+}
