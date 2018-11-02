@@ -1,6 +1,15 @@
 class Project < ApplicationRecord
   belongs_to :user
   has_many :tasks
+  after_create :add_slug
+
+  def to_param
+    slug
+  end
+
+  def add_slug
+    update(slug: to_slug(self.name + "-" + Time.now.to_i.to_s))
+  end
 
   def actual_status
     now_time = Time.now

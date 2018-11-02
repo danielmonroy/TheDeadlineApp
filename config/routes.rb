@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :tasks
-  resources :projects
+  resources :projects, param: :slug
   devise_for :users, path: 'auth'
   resources :dashboard
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
