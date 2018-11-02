@@ -1,24 +1,157 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h3><%= @project.name %> &nbsp;
+        <% case @project.actual_status %>
+        <% when "beginning" %>
+          <label class="badge badge-success pull-right">Beginning</label>
+        <% when "advanced" %>
+          <label class="badge badge-primary pull-right">Advanced</label>
+        <% when "midway" %>
+          <label class="badge badge-warning pull-right">Midway</label>
+        <% when "ending" %>
+          <label class="badge badge-danger pull-right">Ending</label>
+        <% when "late" %>
+          <label class="badge badge-info pull-right">Late</label>
+        <% end %>
+      </h3>
+        <div class="wrapper mt-2">
+          <div class="d-flex justify-content-between">
+            <% case @project.actual_status %>
+            <% when "beginning" %>
+              <p class="mb-2 text-success">Started <%= @project.start_date.strftime('%a %b %d, %Y') %> &nbsp;-&nbsp; Ends <%= @project.end_date.strftime('%a %b %d, %Y') + " - " + @project.percentage.to_s %>%</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= @project.percentage %>%" aria-valuenow="<%= @project.percentage %>"
+                aria-valuemin="0" aria-valuemax="100"></div>
+            <% when "advanced" %>
+              <p class="mb-2 text-primary">Started <%= @project.start_date.strftime('%a %b %d, %Y') %> &nbsp;-&nbsp; Ends <%= @project.end_date.strftime('%a %b %d, %Y') + " - " + @project.percentage.to_s %>%</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= @project.percentage %>%" aria-valuenow="<%= @project.percentage %>"
+                aria-valuemin="0" aria-valuemax="100"></div>
+            <% when "midway" %>
+              <p class="mb-2 text-warning">Started <%= @project.start_date.strftime('%a %b %d, %Y') %> &nbsp;-&nbsp; Ends <%= @project.end_date.strftime('%a %b %d, %Y') + " - " + @project.percentage.to_s %>%</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 5<%= @project.percentage %>" aria-valuenow="<%= @project.percentage %>"
+                aria-valuemin="0" aria-valuemax="100"></div>
+            <% when "ending" %>
+              <p class="mb-2 text-danger">Started <%= @project.start_date.strftime('%a %b %d, %Y') %> &nbsp;-&nbsp; Ends <%= @project.end_date.strftime('%a %b %d, %Y') + " - " + @project.percentage.to_s %>%</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= @project.percentage %>%" aria-valuenow="<%= @project.percentage %>"
+                aria-valuemin="0" aria-valuemax="100"></div>
+            <% when "late" %>
+              <p class="mb-2 text-info">Started <%= @project.start_date.strftime('%a %b %d, %Y') %> &nbsp;-&nbsp; Ends <%= @project.end_date.strftime('%a %b %d, %Y') + " - " + @project.percentage.to_s %>%</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= @project.percentage %>%" aria-valuenow="<%= @project.percentage %>"
+                aria-valuemin="0" aria-valuemax="100"></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+<div class="row">
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h4><i class="mdi mdi-checkbox-multiple-marked-outline"></i> Tasks</h4>
+          </div>
+          <div class="col-md-6 text-right">
+            <a href="#" data-toggle="modal" data-target="#newTaskModal" class="card-title text-success">New Task</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <% if @tasks.size == 0 %>
+            <br><br>
+            <h4 class="text-muted text-center">You haven't created any task!</h4>
+            <br>
+            <% else %>
+            <div class="table-responsive">
+              <table class="table">
+                <% @tasks.each do |task| %>
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input"> <%= task.title %>
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+                <% end %>
+              </table>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4><i class="mdi mdi-clock"></i> Project History</h4>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @project.start_date %>
-</p>
 
-<p>
-  <strong>End date:</strong>
-  <%= @project.end_date %>
-</p>
+<!-- Modal -->
+<div class="modal fade" id="newTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">New Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
-<p>
-  <strong>User:</strong>
-  <%= @project.user %>
-</p>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+      <%= form_with(model: @task, local: true) do |form| %>
+        <% if @task.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+            <ul>
+            <% @task.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= form.hidden_field :project_id, value: @project.id %>
+        <%= form.hidden_field :active, value: true %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <%= form.label :title %>
+          <%= form.text_field :title, class:"form-control" %>
+        </div>
+        <br>
+        <div class="form-group">
+          <%= form.label :description %>
+          <%= form.text_area :description, rows: 3, class:"form-control" %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <%= form.submit 'Create', class:"btn btn-success" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

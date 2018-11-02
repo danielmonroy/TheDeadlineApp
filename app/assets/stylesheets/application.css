@@ -17,3 +17,7 @@
 .navbar.default-layout .navbar-brand-wrapper .navbar-brand img {
   width: auto;
 }
+
+.modal-content{
+  background-color: #FFF;
+}

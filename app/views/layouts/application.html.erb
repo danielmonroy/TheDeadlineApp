@@ -28,9 +28,9 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style="background: linear-gradient(120deg, #fce38a, #f38181);">
       <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-        <a class="navbar-brand brand-logo" href="/index.html">
-          <img src="logo.png" alt="logo" class="img-responsive" />
-        </a>
+        <%= link_to root_path, class:"navbar-brand brand-logo" do %>
+        <img src="/logo.png" alt="logo" class="img-responsive" />
+        <% end %>
         <a class="navbar-brand brand-logo-mini" href="/index.html">
           <img src="/images/logo-mini.svg" alt="logo" />
         </a>
